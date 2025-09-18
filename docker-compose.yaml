@@ -57,22 +57,20 @@ services:
     networks:
       - postiz-network
   
-  traefik:
-    image: "traefik:v2.9"
-    container_name: "traefik"
-    command:
-      #- "--log.level=DEBUG"
-      - "--api.insecure=true"
-      - "--api.dashboard=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.websecure.address=:443"
-    ports:
-      - "443:443"
+  nginx:
+    image: nginx:stable
+    container_name: nginx
+    restart: always
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - postiz-uploads:/uploads:ro
+    ports:
+      - "80:80"
+      - "443:443"  # if using SSL certificates
     networks:
-    - postiz-network
+      - postiz-network
+    depends_on:
+      - postiz
 
 volumes:
   postgres-volume:
