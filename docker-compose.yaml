@@ -77,14 +77,11 @@ services:
 
 volumes:
   postgres-volume:
-    external: false
   postiz-redis-data:
-    external: false
   postiz-config:
-    external: false
   postiz-uploads:
-    external: false
+  letsencrypt:
+  certbot-www:
 
 networks:
   postiz-network:
-    external: false
