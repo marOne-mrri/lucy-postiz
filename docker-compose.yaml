@@ -11,8 +11,6 @@ services:
     volumes:
       - postiz-config:/config/
       - postiz-uploads:/uploads/
-      - letsencrypt:/etc/letsencrypt
-      - certbot-www:/var/www/certbot
     networks:
       - postiz-network
     depends_on:
@@ -60,6 +58,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - postiz-uploads:/uploads:ro
+      - ./certs:/etc/nginx/certs:ro
     ports:
       - "80:80"
       - "443:443"  # if using SSL certificates
@@ -68,20 +67,11 @@ services:
     depends_on:
       - postiz
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - letsencrypt:/etc/letsencrypt
-      - certbot-www:/var/www/certbot
-
 volumes:
   postgres-volume:
   postiz-redis-data:
   postiz-config:
   postiz-uploads:
-  letsencrypt:
-  certbot-www:
 
 networks:
   postiz-network:
