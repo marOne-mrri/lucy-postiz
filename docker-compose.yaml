@@ -6,8 +6,10 @@ services:
     restart: always
     env_file:
       - .env
-    ports:
-      - "${MAIN_PORT:-5000}:${MAIN_PORT:-5000}" # Uses MAIN_PORT from .env, defaults to 5000
+    expose:
+      - 5000
+    # ports:
+    #   - "${MAIN_PORT:-5000}:${MAIN_PORT:-5000}" # Uses MAIN_PORT from .env, defaults to 5000
     volumes:
       - postiz-config:/config/
       - postiz-uploads:/uploads/
