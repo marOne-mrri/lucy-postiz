@@ -61,6 +61,7 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - postiz-uploads:/uploads:ro
       - ./certs:/etc/nginx/certs:ro
+      - ./html:/usr/share/nginx/html:ro
     ports:
       - "80:80"
       - "443:443"  # if using SSL certificates
